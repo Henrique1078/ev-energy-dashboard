@@ -1,76 +1,109 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap");
 
 @theme {
-  --color-bg-primary: #0a0e1a;
-  --color-bg-secondary: #0f1629;
-  --color-bg-card: #131929;
-  --color-bg-card-hover: #1a2235;
-  --color-border: #1e2d45;
-  --color-border-light: #243352;
+  --color-void: #03060f;
+  --color-deep: #060d1f;
+  --color-surface: #0a1628;
+  --color-card: #0d1e35;
+  --color-card-hover: #112440;
+  --color-border: #1a3050;
+  --color-border-bright: #1e3d66;
 
-  --color-text-primary: #e2e8f0;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
+  --color-text-primary: #e8f4fd;
+  --color-text-secondary: #7eb8d4;
+  --color-text-muted: #3d6b8a;
 
-  --color-accent-blue: #3b82f6;
-  --color-accent-cyan: #06b6d4;
-  --color-accent-green: #10b981;
-  --color-accent-yellow: #f59e0b;
-  --color-accent-purple: #8b5cf6;
-  --color-accent-red: #ef4444;
+  --color-electric: #00d4ff;
+  --color-plasma: #0099cc;
+  --color-acid: #39ff8f;
+  --color-amber: #ff9500;
+  --color-danger: #ff3d5a;
+  --color-violet: #a855f7;
 
-  --color-chart-1: #3b82f6;
-  --color-chart-2: #06b6d4;
-  --color-chart-3: #10b981;
-  --color-chart-4: #f59e0b;
-  --color-chart-5: #8b5cf6;
-  --color-chart-6: #ef4444;
-  --color-chart-7: #ec4899;
+  --color-chart-1: #00d4ff;
+  --color-chart-2: #39ff8f;
+  --color-chart-3: #ff9500;
+  --color-chart-4: #a855f7;
+  --color-chart-5: #ff3d5a;
+  --color-chart-6: #ffd700;
+  --color-chart-7: #00ff9d;
 
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: "Rajdhani", sans-serif;
+  --font-data: "DM Mono", monospace;
+  --font-body: "Outfit", sans-serif;
 
-  --radius-card: 12px;
-  --radius-badge: 6px;
+  --glow-electric: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(0, 212, 255, 0.15);
+  --glow-acid: 0 0 20px rgba(57, 255, 143, 0.4), 0 0 40px rgba(57, 255, 143, 0.15);
+  --glow-amber: 0 0 20px rgba(255, 149, 0, 0.4), 0 0 40px rgba(255, 149, 0, 0.15);
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  color-scheme: dark;
-}
+html { color-scheme: dark; }
 
 body {
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-void);
   color: var(--color-text-primary);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-#root {
-  min-height: 100vh;
-  width: 100%;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 0%, rgba(0, 100, 180, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0, 60, 120, 0.1) 0%, transparent 60%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(0, 212, 255, 0.015) 40px,
+      rgba(0, 212, 255, 0.015) 41px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(0, 212, 255, 0.015) 40px,
+      rgba(0, 212, 255, 0.015) 41px
+    );
+  pointer-events: none;
+  z-index: 0;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+#root { min-height: 100vh; width: 100%; position: relative; z-index: 1; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--color-void); }
+::-webkit-scrollbar-thumb { background: var(--color-border-bright); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-plasma); }
+
+.glow-electric { box-shadow: var(--glow-electric); }
+.glow-acid { box-shadow: var(--glow-acid); }
+.glow-amber { box-shadow: var(--glow-amber); }
+
+.glass {
+  background: rgba(10, 22, 40, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 212, 255, 0.12);
 }
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg-primary);
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-border-light);
-  border-radius: 3px;
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+@keyframes number-flash {
+  0% { color: var(--color-electric); }
+  100% { color: var(--color-text-primary); }
 }
