@@ -30,7 +30,7 @@ function CustomTooltip({ active, payload, label }: TooltipProps) {
         {label}
       </p>
       <p style={{ color: 'var(--color-chart-1)', margin: 0 }}>
-        {(payload[0].value / 1000).toFixed(0)}K vehicles sold
+        {payload[0].value >= 1_000_000 ? `${(payload[0].value/1_000_000).toFixed(1)}M` : `${(payload[0].value/1_000).toFixed(0)}K`} vehicles sold
       </p>
     </div>
   )
@@ -54,7 +54,7 @@ export function RegionRankingChart({ data, year }: Props) {
             type="number"
             tick={{ fill: 'var(--color-text-muted)', fontSize: 11 }}
             axisLine={{ stroke: 'var(--color-border)' }}
-            tickFormatter={v => `${(v / 1000).toFixed(0)}K`}
+            tickFormatter={v => v >= 1_000_000 ? `${(v/1_000_000).toFixed(1)}M` : v >= 1_000 ? `${(v/1_000).toFixed(0)}K` : `${v}`}
           />
           <YAxis
             type="category"

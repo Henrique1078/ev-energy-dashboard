@@ -1,7 +1,6 @@
 import { useRef } from "react"
 import { motion } from "framer-motion"
 import { useFilterStore } from "../../store/filterStore"
-import { useScrollDirection } from "../../hooks/useScrollDirection"
 
 const REGIONS = ["China", "USA", "Germany", "France", "United Kingdom", "Norway", "Netherlands", "Sweden", "Japan", "India"]
 const YEARS = Array.from({ length: 13 }, (_, i) => 2011 + i)
@@ -9,8 +8,6 @@ const YEARS = Array.from({ length: 13 }, (_, i) => 2011 + i)
 export function FilterBar() {
   const { regions, selectedYears, setRegions, setSelectedYears, resetFilters } = useFilterStore()
   const lastClickedYear = useRef<number | null>(null)
-  const visible = useScrollDirection()
-
   const toggleRegion = (region: string) => {
     if (regions.includes(region)) {
       if (regions.length === 1) return
@@ -59,9 +56,7 @@ export function FilterBar() {
   })
 
   return (
-    <motion.div
-      animate={{ y: visible ? 0 : -80, opacity: visible ? 1 : 0 }}
-      transition={{ duration: 0.25, ease: "easeInOut" }}
+    <div
       style={{
         position: "sticky",
         top: 64,
@@ -137,6 +132,6 @@ export function FilterBar() {
       >
         ↺ RESET
       </button>
-    </motion.div>
+    </div>
   )
 }

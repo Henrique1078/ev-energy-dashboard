@@ -6,6 +6,7 @@ import { SalesTrendChart } from "./components/charts/SalesTrendChart"
 import { RegionRankingChart } from "./components/charts/RegionRankingChart"
 import { PowertrainShareChart } from "./components/charts/PowertrainShareChart"
 import { BarRaceChart } from "./components/charts/BarRaceChart"
+import { WorldMap } from "./components/charts/WorldMap"
 import { useEVData, useKPIData, useSalesTrend, useRegionRanking } from "./hooks/useEVData"
 import { useFilterStore } from "./store/filterStore"
 
@@ -69,6 +70,14 @@ export default function App() {
           {loading
             ? <><Skeleton height={420} /><Skeleton height={420} /></>
             : <><BarRaceChart data={data} /><PowertrainShareChart data={data} year={lastYear} /></>
+          }
+        </div>
+
+        {/* Row 2.5 — World Map */}
+        <div style={{ marginBottom: 20 }}>
+          {loading
+            ? <Skeleton height={480} />
+            : <WorldMap data={data} year={lastYear} />
           }
         </div>
 

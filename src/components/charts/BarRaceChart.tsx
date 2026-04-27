@@ -31,7 +31,7 @@ function getColor(region: string): string {
 export function BarRaceChart({ data }: Props) {
   const excluded = ["World", "Europe", "EU27", "Rest of the world", "Other Europe", "EV"]
   const years = Array.from(new Set(
-    data.filter(d => d.parameter === "EV sales" && d.mode === "Cars" && d.category === "Historical")
+    data.filter(d => d.parameter === "EV sales" && d.mode === "Cars" && d.category === "Historical" && d.powertrain === "BEV")
       .map(d => d.year)
   )).sort()
 
@@ -45,6 +45,7 @@ export function BarRaceChart({ data }: Props) {
     .filter(d =>
       d.parameter === "EV sales" &&
       d.mode === "Cars" &&
+      d.powertrain === "BEV" &&
       d.year === currentYear &&
       !excluded.includes(d.region)
     )

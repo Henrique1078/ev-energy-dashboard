@@ -45,15 +45,17 @@ export function Header() {
             width: 40,
             height: 40,
             borderRadius: 8,
-            background: "linear-gradient(135deg, rgba(0,212,255,0.2), rgba(0,153,204,0.1))",
+            background: "linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,153,204,0.08))",
             border: "1px solid rgba(0,212,255,0.4)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: 20,
-            boxShadow: "0 0 20px rgba(0,212,255,0.3)",
+            boxShadow: "0 0 20px rgba(0,212,255,0.25)",
           }}>
-            ⚡
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z" fill="none" stroke="#00d4ff" strokeWidth="1.5" strokeLinejoin="round"/>
+              <circle cx="12" cy="12" r="10" stroke="rgba(0,212,255,0.2)" strokeWidth="1"/>
+            </svg>
           </div>
           <motion.div
             animate={{ opacity: [1, 0.3, 1] }}
