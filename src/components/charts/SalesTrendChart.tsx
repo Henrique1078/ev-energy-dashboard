@@ -71,7 +71,7 @@ export function SalesTrendChart({ data, regions }: Props) {
     >
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
           <XAxis
             dataKey="year"
             tick={{ fill: 'var(--color-text-muted)', fontSize: 11 }}

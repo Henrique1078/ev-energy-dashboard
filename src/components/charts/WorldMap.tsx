@@ -184,23 +184,23 @@ export function WorldMap({ data, year }: Props) {
 
   return (
     <div style={{
-      background: "rgba(10,22,40,0.8)",
-      backdropFilter: "blur(16px)",
-      border: "1px solid rgba(0,212,255,0.12)",
-      borderRadius: 16,
+      background: "var(--ink-2)",
+      
+      border: "1px solid var(--border)",
+      borderRadius: 4,
       padding: "24px",
       position: "relative",
       overflow: "hidden",
     }}>
       {/* Header */}
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontFamily: "var(--font-data)", fontSize: 10, color: "var(--color-text-muted)", letterSpacing: "2px", marginBottom: 4 }}>
+        <div style={{ fontFamily: "var(--font-data)", fontSize: 10, color: "var(--text-3)", letterSpacing: "2px", marginBottom: 4 }}>
           GEOGRAPHIC DISTRIBUTION
         </div>
-        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, color: "var(--color-text-primary)", letterSpacing: "1px", margin: 0 }}>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, color: "var(--text-1)", letterSpacing: "1px", margin: 0 }}>
           GLOBAL EV ADOPTION MAP
         </h3>
-        <p style={{ fontFamily: "var(--font-data)", fontSize: 11, color: "var(--color-text-muted)", marginTop: 4 }}>
+        <p style={{ fontFamily: "var(--font-data)", fontSize: 11, color: "var(--text-3)", marginTop: 4 }}>
           EV car sales by country · {year} · Hover for details
         </p>
       </div>
@@ -226,9 +226,9 @@ export function WorldMap({ data, year }: Props) {
                 position: "absolute",
                 left: tooltip.x + 12,
                 top: tooltip.y - 60,
-                background: "rgba(6,13,31,0.95)",
+                background: "var(--ink-3)",
                 backdropFilter: "blur(12px)",
-                border: "1px solid rgba(0,212,255,0.3)",
+                border: "1px solid var(--border-2)",
                 borderRadius: 8,
                 padding: "10px 14px",
                 pointerEvents: "none",
@@ -236,17 +236,17 @@ export function WorldMap({ data, year }: Props) {
                 minWidth: 140,
               }}
             >
-              <div style={{ fontFamily: "var(--font-display)", fontSize: 13, color: "var(--color-text-primary)", fontWeight: 600, marginBottom: 6, letterSpacing: "0.5px" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: 13, color: "var(--text-1)", fontWeight: 600, marginBottom: 6, letterSpacing: "0.5px" }}>
                 {tooltip.country}
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
                 <div>
-                  <div style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--color-text-muted)", letterSpacing: "1px", marginBottom: 2 }}>SALES</div>
-                  <div style={{ fontFamily: "var(--font-data)", fontSize: 14, color: "var(--color-electric)", fontWeight: 600 }}>{fmt(tooltip.value)}</div>
+                  <div style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--text-3)", letterSpacing: "1px", marginBottom: 2 }}>SALES</div>
+                  <div style={{ fontFamily: "var(--font-data)", fontSize: 14, color: "var(--amber)", fontWeight: 600 }}>{fmt(tooltip.value)}</div>
                 </div>
                 <div>
-                  <div style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--color-text-muted)", letterSpacing: "1px", marginBottom: 2 }}>RANK</div>
-                  <div style={{ fontFamily: "var(--font-data)", fontSize: 14, color: "var(--color-acid)", fontWeight: 600 }}>#{tooltip.rank}</div>
+                  <div style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--text-3)", letterSpacing: "1px", marginBottom: 2 }}>RANK</div>
+                  <div style={{ fontFamily: "var(--font-data)", fontSize: 14, color: "var(--green)", fontWeight: 600 }}>#{tooltip.rank}</div>
                 </div>
               </div>
             </motion.div>
@@ -256,14 +256,14 @@ export function WorldMap({ data, year }: Props) {
 
       {/* Legend */}
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 12 }}>
-        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--color-text-muted)" }}>LOW</span>
+        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--text-3)" }}>LOW</span>
         <div style={{
           flex: 1, height: 4, borderRadius: 2,
           background: "linear-gradient(90deg, #0d1e35, #00d4ff)",
           maxWidth: 200,
         }} />
-        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--color-text-muted)" }}>HIGH</span>
-        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--color-text-muted)", marginLeft: 8 }}>
+        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--text-3)" }}>HIGH</span>
+        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--text-3)", marginLeft: 8 }}>
           No data
         </span>
         <div style={{ width: 12, height: 4, borderRadius: 2, background: "#0d1e35", border: "1px solid #1a3050" }} />

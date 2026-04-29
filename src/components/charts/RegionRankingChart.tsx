@@ -49,7 +49,7 @@ export function RegionRankingChart({ data, year }: Props) {
           layout="vertical"
           margin={{ top: 0, right: 16, left: 60, bottom: 0 }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" horizontal={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
           <XAxis
             type="number"
             tick={{ fill: 'var(--color-text-muted)', fontSize: 11 }}

@@ -77,10 +77,10 @@ export function BarRaceChart({ data }: Props) {
 
   return (
     <div style={{
-      background: "rgba(10, 22, 40, 0.8)",
-      backdropFilter: "blur(16px)",
-      border: "1px solid rgba(0,212,255,0.12)",
-      borderRadius: 16,
+      background: "var(--ink-2)",
+      
+      border: "1px solid var(--border)",
+      borderRadius: 4,
       padding: "24px",
       position: "relative",
       overflow: "hidden",
@@ -88,13 +88,13 @@ export function BarRaceChart({ data }: Props) {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
         <div>
-          <div style={{ fontFamily: "var(--font-data)", fontSize: 10, color: "var(--color-text-muted)", letterSpacing: "2px", marginBottom: 4 }}>
+          <div style={{ fontFamily: "var(--font-data)", fontSize: 10, color: "var(--text-3)", letterSpacing: "2px", marginBottom: 4 }}>
             ANIMATED RANKING
           </div>
-          <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, color: "var(--color-text-primary)", letterSpacing: "1px" }}>
+          <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, color: "var(--text-1)", letterSpacing: "1px" }}>
             EV MARKET RACE
           </h3>
-          <p style={{ fontFamily: "var(--font-data)", fontSize: 11, color: "var(--color-text-muted)", marginTop: 2 }}>
+          <p style={{ fontFamily: "var(--font-data)", fontSize: 11, color: "var(--text-3)", marginTop: 2 }}>
             This animation is impossible in Power BI
           </p>
         </div>
@@ -128,7 +128,7 @@ export function BarRaceChart({ data }: Props) {
                 borderRadius: 8,
                 border: "1px solid rgba(0,212,255,0.2)",
                 background: "transparent",
-                color: "var(--color-text-muted)",
+                color: "var(--text-3)",
                 fontSize: 14,
                 cursor: "pointer",
               }}
@@ -140,7 +140,7 @@ export function BarRaceChart({ data }: Props) {
                 borderRadius: 8,
                 border: "1px solid rgba(0,212,255,0.4)",
                 background: isPlaying ? "rgba(0,212,255,0.15)" : "transparent",
-                color: "var(--color-electric)",
+                color: "var(--amber)",
                 fontSize: 14,
                 cursor: "pointer",
                 fontFamily: "var(--font-data)",
@@ -180,7 +180,7 @@ export function BarRaceChart({ data }: Props) {
                 }}>
                   {region}
                 </div>
-                <div style={{ flex: 1, height: 28, background: "rgba(255,255,255,0.03)", borderRadius: 6, overflow: "hidden", position: "relative" }}>
+                <div style={{ flex: 1, height: 28, background: "rgba(255,255,255,0.02)", borderRadius: 6, overflow: "hidden", position: "relative" }}>
                   <motion.div
                     animate={{ width: `${pct}%` }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
@@ -214,7 +214,7 @@ export function BarRaceChart({ data }: Props) {
                 <div style={{
                   fontFamily: "var(--font-data)",
                   fontSize: 10,
-                  color: "var(--color-text-muted)",
+                  color: "var(--text-3)",
                   width: 20,
                   textAlign: "center",
                   flexShrink: 0,
@@ -239,7 +239,7 @@ export function BarRaceChart({ data }: Props) {
               borderRadius: 3,
               border: "none",
               background: i === yearIndex
-                ? "var(--color-electric)"
+                ? "var(--amber)"
                 : i < yearIndex
                 ? "rgba(0,212,255,0.3)"
                 : "rgba(255,255,255,0.06)",
@@ -251,8 +251,8 @@ export function BarRaceChart({ data }: Props) {
         ))}
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: 4 }}>
-        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--color-text-muted)" }}>{years[0]}</span>
-        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--color-text-muted)" }}>{years[years.length - 1]}</span>
+        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--text-3)" }}>{years[0]}</span>
+        <span style={{ fontFamily: "var(--font-data)", fontSize: 9, color: "var(--text-3)" }}>{years[years.length - 1]}</span>
       </div>
     </div>
   )

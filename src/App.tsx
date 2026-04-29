@@ -1,5 +1,6 @@
-import { Header } from "./components/layout/Header"
-import { FilterBar } from "./components/filters/FilterBar"
+import { useState } from "react"
+import { Sidebar } from "./components/layout/Sidebar"
+import { Topbar } from "./components/layout/Topbar"
 import { KPICard } from "./components/ui/KPICard"
 import { Skeleton } from "./components/ui/Skeleton"
 import { SalesTrendChart } from "./components/charts/SalesTrendChart"
@@ -10,11 +11,15 @@ import { WorldMap } from "./components/charts/WorldMap"
 import { useEVData, useKPIData, useSalesTrend, useRegionRanking } from "./hooks/useEVData"
 import { useFilterStore } from "./store/filterStore"
 
-const g = (cols: string): React.CSSProperties => ({
-  display: "grid", gridTemplateColumns: cols, gap: 16,
-})
+const SECTION_TITLES: Record<string, string> = {
+  overview:  "Overview",
+  markets:   "Markets",
+  geography: "Geography",
+  trends:    "Trends",
+}
 
 export default function App() {
+  const [section, setSection] = useState("overview")
   const { data, loading, error } = useEVData()
   const { regions, selectedYears } = useFilterStore()
   const lastYear = selectedYears.length > 0 ? Math.max(...selectedYears) : 2023
@@ -23,73 +28,80 @@ export default function App() {
   const regionRanking = useRegionRanking(data, selectedYears)
 
   if (error) return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", color: "var(--color-danger)", fontFamily: "var(--font-data)" }}>
-      ⚠ {error}
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh", color: "var(--red)", fontFamily: "var(--font-data)", fontSize: 13 }}>
+      ⚠ Failed to load dataset
+    </div>
+  )
+
+  const kpiCards = loading ? (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, marginBottom: 1 }}>
+      {Array.from({length:4}).map((_,i) => <Skeleton key={i} height={180} />)}
+    </div>
+  ) : (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, marginBottom: 1 }}>
+      <KPICard label="EV Sales" yearValue={kpi.yearSales} totalValue={kpi.totalSales}
+        unit="vehicles" growth={kpi.salesGrowth} accentColor="var(--amber)" dimColor="var(--amber-dim)"
+        selectedYear={lastYear} delay={0.05} description="Battery & plug-in hybrid cars" />
+      <KPICard label="EV Fleet" yearValue={kpi.yearStock} totalValue={kpi.totalStock}
+        unit="on road" growth={kpi.stockGrowth} accentColor="var(--green)" dimColor="var(--green-dim)"
+        selectedYear={lastYear} delay={0.1} description="Cumulative stock worldwide" />
+      <KPICard label="Charging Points" yearValue={kpi.yearCharging} totalValue={kpi.totalCharging}
+        unit="public" accentColor="var(--blue)" dimColor="var(--blue-dim)"
+        selectedYear={lastYear} delay={0.15} description="Publicly accessible chargers" />
+      <KPICard label="Oil Displaced" yearValue={kpi.yearOil} totalValue={kpi.totalOil}
+        unit="Mbd" accentColor="#bc8cff" dimColor="rgba(188,140,255,0.12)"
+        selectedYear={lastYear} delay={0.2} format="decimal" description="Million barrels per day saved" />
     </div>
   )
 
   return (
-    <div style={{ minHeight: "100vh" }}>
-      <Header />
-      <FilterBar />
-      <main style={{ padding: "24px 32px", maxWidth: 1600, margin: "0 auto" }}>
+    <div style={{ display: "flex", minHeight: "100vh", background: "var(--ink)" }}>
+      <Sidebar activeSection={section} onNavigate={setSection} />
 
-        {/* KPIs */}
-        <div style={{ ...g("repeat(4, 1fr)"), marginBottom: 20 }}>
-          {loading
-            ? Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} height={160} />)
-            : (<>
-              <KPICard
-                label="Global EV Sales" icon="🚗" glowColor="#00d4ff"
-                yearValue={kpi.yearSales} totalValue={kpi.totalSales}
-                unit="vehicles" growth={kpi.salesGrowth}
-                selectedYear={lastYear} delay={0.1}
-              />
-              <KPICard
-                label="EV Fleet on Road" icon="🌍" glowColor="#39ff8f"
-                yearValue={kpi.yearStock} totalValue={kpi.totalStock}
-                unit="total" growth={kpi.stockGrowth}
-                selectedYear={lastYear} delay={0.2}
-              />
-              <KPICard
-                label="Charging Points" icon="⚡" glowColor="#ff9500"
-                yearValue={kpi.yearCharging} totalValue={kpi.totalCharging}
-                unit="public" selectedYear={lastYear} delay={0.3}
-              />
-              <KPICard
-                label="Oil Displaced" icon="🛢️" glowColor="#a855f7"
-                yearValue={kpi.yearOil} totalValue={kpi.totalOil}
-                unit="Mbd" selectedYear={lastYear} delay={0.4} format="decimal"
-              />
-            </>)
-          }
-        </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
+        <Topbar title={SECTION_TITLES[section]} />
 
-        {/* Row 2 — Bar Race + Powertrain */}
-        <div style={{ ...g("3fr 2fr"), marginBottom: 20 }}>
-          {loading
-            ? <><Skeleton height={420} /><Skeleton height={420} /></>
-            : <><BarRaceChart data={data} /><PowertrainShareChart data={data} year={lastYear} /></>
-          }
-        </div>
+        <main style={{ flex: 1, padding: "1px", display: "flex", flexDirection: "column", gap: 1 }}>
 
-        {/* Row 2.5 — World Map */}
-        <div style={{ marginBottom: 20 }}>
-          {loading
-            ? <Skeleton height={480} />
-            : <WorldMap data={data} year={lastYear} />
-          }
-        </div>
+          {/* KPIs sempre visíveis */}
+          {kpiCards}
 
-        {/* Row 3 — Trend + Ranking */}
-        <div style={{ ...g("3fr 2fr"), marginBottom: 20 }}>
-          {loading
-            ? <><Skeleton height={360} /><Skeleton height={360} /></>
-            : <><SalesTrendChart data={salesTrend} regions={regions} /><RegionRankingChart data={regionRanking} year={lastYear} /></>
-          }
-        </div>
+          {/* Overview */}
+          {section === "overview" && (
+            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 1 }}>
+              {loading ? <><Skeleton height={400} /><Skeleton height={400} /></> : (
+                <><BarRaceChart data={data} /><PowertrainShareChart data={data} year={lastYear} /></>
+              )}
+            </div>
+          )}
 
-      </main>
+          {/* Markets */}
+          {section === "markets" && (
+            <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 1 }}>
+              {loading ? <><Skeleton height={400} /><Skeleton height={400} /></> : (
+                <><SalesTrendChart data={salesTrend} regions={regions} /><RegionRankingChart data={regionRanking} year={lastYear} /></>
+              )}
+            </div>
+          )}
+
+          {/* Geography */}
+          {section === "geography" && (
+            <div style={{ gap: 1 }}>
+              {loading ? <Skeleton height={500} /> : <WorldMap data={data} year={lastYear} />}
+            </div>
+          )}
+
+          {/* Trends */}
+          {section === "trends" && (
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1 }}>
+              {loading ? <><Skeleton height={400} /><Skeleton height={400} /></> : (
+                <><SalesTrendChart data={salesTrend} regions={regions} /><BarRaceChart data={data} /></>
+              )}
+            </div>
+          )}
+
+        </main>
+      </div>
     </div>
   )
 }

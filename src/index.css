@@ -1,109 +1,53 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap");
 
-@theme {
-  --color-void: #03060f;
-  --color-deep: #060d1f;
-  --color-surface: #0a1628;
-  --color-card: #0d1e35;
-  --color-card-hover: #112440;
-  --color-border: #1a3050;
-  --color-border-bright: #1e3d66;
-
-  --color-text-primary: #e8f4fd;
-  --color-text-secondary: #7eb8d4;
-  --color-text-muted: #3d6b8a;
-
-  --color-electric: #00d4ff;
-  --color-plasma: #0099cc;
-  --color-acid: #39ff8f;
-  --color-amber: #ff9500;
-  --color-danger: #ff3d5a;
-  --color-violet: #a855f7;
-
-  --color-chart-1: #00d4ff;
-  --color-chart-2: #39ff8f;
-  --color-chart-3: #ff9500;
-  --color-chart-4: #a855f7;
-  --color-chart-5: #ff3d5a;
-  --color-chart-6: #ffd700;
-  --color-chart-7: #00ff9d;
-
-  --font-display: "Rajdhani", sans-serif;
-  --font-data: "DM Mono", monospace;
-  --font-body: "Outfit", sans-serif;
-
-  --glow-electric: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(0, 212, 255, 0.15);
-  --glow-acid: 0 0 20px rgba(57, 255, 143, 0.4), 0 0 40px rgba(57, 255, 143, 0.15);
-  --glow-amber: 0 0 20px rgba(255, 149, 0, 0.4), 0 0 40px rgba(255, 149, 0, 0.15);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
 html { color-scheme: dark; }
 
 body {
-  background-color: var(--color-void);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
+  background: #0e1117;
+  color: #c9d1d9;
+  font-family: "Barlow", sans-serif;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 0%, rgba(0, 100, 180, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0, 60, 120, 0.1) 0%, transparent 60%),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 40px,
-      rgba(0, 212, 255, 0.015) 40px,
-      rgba(0, 212, 255, 0.015) 41px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 40px,
-      rgba(0, 212, 255, 0.015) 40px,
-      rgba(0, 212, 255, 0.015) 41px
-    );
-  pointer-events: none;
-  z-index: 0;
+#root { min-height: 100vh; display: flex; }
+
+:root {
+  --ink:       #0e1117;
+  --ink-2:     #161b22;
+  --ink-3:     #1c2128;
+  --ink-4:     #21262d;
+  --border:    #30363d;
+  --border-2:  #3d444d;
+
+  --text-1:    #e6edf3;
+  --text-2:    #8b949e;
+  --text-3:    #484f58;
+
+  --amber:     #e6a817;
+  --amber-dim: rgba(230,168,23,0.12);
+  --amber-mid: rgba(230,168,23,0.25);
+  --green:     #3fb950;
+  --green-dim: rgba(63,185,80,0.12);
+  --red:       #f85149;
+  --red-dim:   rgba(248,81,73,0.12);
+  --blue:      #58a6ff;
+  --blue-dim:  rgba(88,166,255,0.12);
+
+  --chart-1:   #e6a817;
+  --chart-2:   #3fb950;
+  --chart-3:   #58a6ff;
+  --chart-4:   #bc8cff;
+  --chart-5:   #f85149;
+  --chart-6:   #79c0ff;
+  --chart-7:   #56d364;
+
+  --font-display: "Barlow Condensed", sans-serif;
+  --font-data:    "Fira Code", monospace;
+  --font-body:    "Barlow", sans-serif;
 }
 
-#root { min-height: 100vh; width: 100%; position: relative; z-index: 1; }
-
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-track { background: var(--color-void); }
-::-webkit-scrollbar-thumb { background: var(--color-border-bright); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-plasma); }
-
-.glow-electric { box-shadow: var(--glow-electric); }
-.glow-acid { box-shadow: var(--glow-acid); }
-.glow-amber { box-shadow: var(--glow-amber); }
-
-.glass {
-  background: rgba(10, 22, 40, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 212, 255, 0.12);
-}
-
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-@keyframes number-flash {
-  0% { color: var(--color-electric); }
-  100% { color: var(--color-text-primary); }
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
